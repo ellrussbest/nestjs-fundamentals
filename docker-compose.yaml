@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres
+    container_name: my_postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_USER_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - '${DATABASE_PORT:-5432}:${DATABASE_PORT:-5432}'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - amarom-edge
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  amarom-edge:
