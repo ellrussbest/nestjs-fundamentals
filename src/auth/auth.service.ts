@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
+import omit from 'just-omit';
 
 import { AuthDto } from '@/auth/dto/auth.dto';
 import { PrismaService } from '@/prisma/prisma.service';
@@ -21,9 +22,7 @@ export class AuthService {
         },
       });
 
-      delete (user as any).hash;
-
-      return user;
+      return omit(user, ['hash']);
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === 'P2002') {
@@ -48,7 +47,6 @@ export class AuthService {
 
     if (!matches) throw new ForbiddenException('Credentials incorrect!');
 
-    delete (user as any).hash;
-    return user;
+    return omit(user, ['hash']);
   }
 }
