@@ -24,4 +24,8 @@ export class ConfigService {
   get databasePort(): number | undefined {
     return this.configService.get<number>('DATABASE_PORT');
   }
+
+  get JWTSecret(): string | undefined {
+    return this.configService.get<string>('JWT_SECRET');
+  }
 }

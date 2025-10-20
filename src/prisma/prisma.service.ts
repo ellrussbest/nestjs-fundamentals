@@ -6,11 +6,11 @@ import { ConfigService } from '@/config/config.service';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
-  constructor(private readonly configService: ConfigService) {
+  constructor(private readonly config: ConfigService) {
     super({
       datasources: {
         db: {
-          url: configService.databaseUrl,
+          url: config.databaseUrl,
         },
       },
     });
