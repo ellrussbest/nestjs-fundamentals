@@ -18,13 +18,15 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:dev:rm": "docker compose rm db -fsv",
-    "db:dev:up": "docker compose up db -d",
-    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up"
+    "prisma:dev:deploy": "prisma migrate deploy",
+    "db:dev:rm": "docker compose down -v",
+    "db:dev:up": "docker compose up -d",
+    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && sleep 1 && pnpm prisma:dev:deploy"
   },
   "dependencies": {
     "-": "^0.0.1",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@prisma/client": "^6.16.3",
@@ -32,9 +34,11 @@
     "argon2": "^0.44.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
+    "consola": "^3.4.2",
     "just-omit": "^2.2.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

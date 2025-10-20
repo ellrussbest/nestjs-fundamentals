@@ -25,8 +25,11 @@ export class AuthService {
       return omit(user, ['hash']);
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-          throw new ForbiddenException('Credentials taken!');
+        switch (err.code) {
+          case 'P2002':
+            throw new ForbiddenException('Credentials taken!');
+          default:
+            throw err;
         }
       }
 
