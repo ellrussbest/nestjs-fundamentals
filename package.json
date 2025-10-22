@@ -18,10 +18,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prisma:dev:deploy": "prisma migrate deploy",
-    "db:dev:rm": "docker compose down -v",
+    "prisma:dev:deploy": "pnpx prisma migrate deploy",
+    "db:dev:rm": "docker compose down --remove-orphans --volumes",
     "db:dev:up": "docker compose up -d",
-    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && sleep 1 && pnpm prisma:dev:deploy"
+    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && pnpx wait-on tcp:5432 && pnpm prisma:dev:deploy"
   },
   "dependencies": {
     "-": "^0.0.1",
@@ -61,6 +61,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "jest": "^30.0.0",
+    "pactum": "^3.8.0",
     "prettier": "^3.4.2",
     "prisma": "^6.16.3",
     "source-map-support": "^0.5.21",
@@ -70,11 +71,13 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript-eslint": "^8.20.0",
+    "wait-on": "^9.0.1"
   },
   "jest": {
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^generated/(.*)$": "<rootDir>/generated/$1"
     },
     "moduleFileExtensions": [
       "js",
@@ -92,5 +95,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "testTimeout": 120000
-  }
+  },
+  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
 }

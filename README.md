@@ -9,6 +9,7 @@ docker compose rm <service-name> -fsv
 docker compose config
 docker volume ls
 docker volume rm <volume-name>
+docker compose down -v --remove-orphans
 ```
 
 # Prisma
@@ -18,6 +19,7 @@ docker volume rm <volume-name>
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
+npx prisma migrate deploy
 npx prisma studio
 npx prisma -v # know your platform information
 ```
@@ -105,7 +107,7 @@ Without DI, you’d have to wire everything yourself:
 
 ```ts
 const db = new DatabaseService();
-const userService = new UserService(db);
+const user = new UserService(db);
 ```
 
 With NestJS + DI:
@@ -128,3 +130,8 @@ export class UserService {
 * This makes your app more **modular**, **testable**, and **clean**.
 
 ---
+
+## Types of testing
+- Unit testing
+- Integration testing
+- E2E testing
