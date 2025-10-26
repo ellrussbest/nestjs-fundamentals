@@ -143,7 +143,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/var/home/rodhiambo/Development/nestjs-fundamentals/generated/prisma",
+      "value": "C:\\Users\\ellru\\OneDrive\\Desktop\\Development\\nest-js\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -152,7 +152,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "rhel-openssl-3.0.x",
+        "value": "windows",
         "native": true
       },
       {
@@ -161,7 +161,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/var/home/rodhiambo/Development/nestjs-fundamentals/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\ellru\\OneDrive\\Desktop\\Development\\nest-js\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

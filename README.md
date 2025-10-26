@@ -41,9 +41,9 @@ In other words, **instead of creating your own tools, you're handed them** — u
 
 This makes your code:
 
-* More **modular**
-* Easier to **test**
-* Easier to **maintain**
+- More **modular**
+- Easier to **test**
+- Easier to **maintain**
 
 ---
 
@@ -64,9 +64,9 @@ You're telling NestJS:
 
 NestJS takes care of:
 
-* Instantiating `DatabaseService`
-* Figuring out when and how to inject it
-* Managing its lifecycle (singleton, etc.)
+- Instantiating `DatabaseService`
+- Figuring out when and how to inject it
+- Managing its lifecycle (singleton, etc.)
 
 ---
 
@@ -125,13 +125,14 @@ export class UserService {
 
 ## TL;DR
 
-* **`@Injectable()`** tells NestJS that the class can **participate in DI** (can **receive dependencies** and be **injected elsewhere**).
-* DI allows Nest to **manage your dependencies for you** — you don’t `new` them up manually.
-* This makes your app more **modular**, **testable**, and **clean**.
+- **`@Injectable()`** tells NestJS that the class can **participate in DI** (can **receive dependencies** and be **injected elsewhere**).
+- DI allows Nest to **manage your dependencies for you** — you don’t `new` them up manually.
+- This makes your app more **modular**, **testable**, and **clean**.
 
 ---
 
-## Types of testing
-- Unit testing
-- Integration testing
-- E2E testing
+## Types of Testing
+
+- **Unit Testing** – Tests individual parts of the code (like functions or components) to make sure each one works correctly on its own.
+- **Integration Testing** – Checks how different parts of the system (like a component interacting with an API or a function calling another module) work together to ensure combined functionality behaves as expected.
+- **End-to-End (E2E) Testing** – Simulates real user scenarios (like logging in, adding an item to a cart, or submitting a form) from start to finish, verifying that the entire application flow works correctly.
