@@ -6,6 +6,8 @@ import * as pactum from 'pactum';
 
 import { AppModule } from '@/app.module';
 import { AuthDto } from '@/auth/dto/auth.dto';
+import { CreateBookmarkDto } from '@/bookmark/dto/create-bookmark.dto';
+import { EditBookmarkDto } from '@/bookmark/dto/edit-bookmark.dto';
 import { ConfigService } from '@/config/config.service';
 import { PrismaService } from '@/prisma/prisma.service';
 import { EditUserDto } from '@/user/dto/edit-user.dto';
@@ -163,10 +165,145 @@ describe('App e2e', () => {
   });
 
   describe('Bookmarks', () => {
-    describe('Create bookmark', () => {});
-    describe('Get bookmarks', () => {});
-    describe('Get bookmark by id', () => {});
-    describe('Edit bookmark by id', () => {});
-    describe('Delete bookmark by id', () => {});
+    describe('Get empty bookmarks', () => {
+      it('should get bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(200)
+          .expectBody([])
+          .inspect();
+      });
+    });
+
+    describe('Create bookmark', () => {
+      const dto: CreateBookmarkDto = {
+        link: 'https://google.com',
+        title: 'Murder She Wrote',
+        description: 'Thriller Series',
+      };
+
+      it('should create a bookmark', () => {
+        return pactum
+          .spec()
+          .post('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .withBody(dto)
+          .expectStatus(201)
+          .expectBodyContains(dto.description)
+          .expectBodyContains(dto.link)
+          .expectBodyContains(dto.title)
+          .stores('bookmarkId', 'id')
+          .inspect();
+      });
+    });
+
+    describe('Get bookmarks', () => {
+      it('should get bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(200)
+          .expectJsonLength(1)
+          .inspect();
+      });
+    });
+
+    describe('Get bookmark by id', () => {
+      it('should get bookmark by id', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(200)
+          .expectBodyContains('$S{bookmarkId}')
+          .inspect();
+      });
+    });
+
+    describe('Edit bookmark by id', () => {
+      const dto: EditBookmarkDto = {
+        link: 'http://murder-she-wrote.com',
+        description: 'Horror Tv Series',
+      };
+
+      it('should fail when the bookmark id is incorrect', () => {
+        return pactum
+          .spec()
+          .patch('/bookmarks/{id}')
+          .withPathParams('id', '-99999')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .withBody(dto)
+          .expectStatus(403)
+          .inspect();
+      });
+
+      it('should edit the bookmark', () => {
+        return pactum
+          .spec()
+          .patch('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .withBody(dto)
+          .expectStatus(200)
+          .expectBodyContains('$S{bookmarkId}')
+          .expectBodyContains(dto.link)
+          .expectBodyContains(dto.description)
+          .inspect();
+      });
+    });
+
+    describe('Delete bookmark by id', () => {
+      it('should fail when the bookmark id is incorrect', () => {
+        return pactum
+          .spec()
+          .delete('/bookmarks/{id}')
+          .withPathParams('id', '-99999')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(403)
+          .inspect();
+      });
+
+      it('should delete the bookmark', () => {
+        return pactum
+          .spec()
+          .delete('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(204)
+          .inspect();
+      });
+
+      it('should get empty bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .expectStatus(200)
+          .expectBody([])
+          .inspect();
+      });
+    });
   });
 });
