@@ -28,4 +28,8 @@ export class ConfigService {
   get JWTSecret(): string | undefined {
     return this.configService.get<string>('JWT_SECRET');
   }
+
+  get baseUrl(): string | undefined {
+    return this.configService.get<string>('BASE_URL');
+  }
 }

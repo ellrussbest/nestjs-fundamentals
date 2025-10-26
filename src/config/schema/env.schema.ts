@@ -13,4 +13,5 @@ export const EnvSchema = z.object({
       message: 'DATABASE_PORT must be a positive integer',
     }),
   JWT_SECRET: z.string().min(1),
+  BASE_URL: z.url(),
 });
