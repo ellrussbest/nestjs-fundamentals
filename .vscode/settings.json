@@ -2,8 +2,8 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
-    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
-    "package.json": "package-lock.json, bun*, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .prettier*, prettier*, .editorconfig"
+    "package.json": "package-lock.json, bun*, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .prettier*, prettier*, .editorconfig",
+    "Docker*": "Dockerfile.*, dockerfile.*, Docker-compose.yml, docker-compose.yml, Docker-compose.*.yml, docker-compose.*.yml, Docker-compose.*.yaml, docker-compose.*.yaml, compose.yml, compose.yaml, compose.*.yml, compose.*.yaml, .dockerignore"
   },
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"

@@ -33,6 +33,16 @@ nest g service <service-name>
 nest g service <service-name> --no-spec # if you don't want spec files
 ```
 
+# dontenv-cli
+
+```bash
+dotenv -- node app.js # run node app.js with variables from .env
+dotenv -e .env.test -- node app.js # run node app.js with variables from .env.test
+dotenv -- pnpm prisma migrate deploy # run prisma migrate with .env loaded
+dotenv -e .env.test -- pnpm prisma migrate deploy # run prisma migrate with .env.test loaded
+dotenv -e .env.test -- pnpx prisma studio
+```
+
 ## Dependency Injection?
 
 **Dependency Injection (DI)** is a **design pattern** where an object (usually a class) **receives** the objects it depends on (called **dependencies**) from an external source, rather than creating them itself.
