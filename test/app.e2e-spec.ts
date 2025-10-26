@@ -8,6 +8,7 @@ import { AppModule } from '@/app.module';
 import { AuthDto } from '@/auth/dto/auth.dto';
 import { ConfigService } from '@/config/config.service';
 import { PrismaService } from '@/prisma/prisma.service';
+import { EditUserDto } from '@/user/dto/edit-user.dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -62,7 +63,7 @@ describe('App e2e', () => {
             password: dto.password,
           })
           .expectStatus(400) // thrown by validation pipe
-          .inspect();
+          .inspect(); // consoles the response
       });
 
       it('should throw if password empty', () => {
@@ -139,7 +140,26 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Edit User', () => {});
+    describe('Edit User', () => {
+      const dto: EditUserDto = {
+        firstname: 'John',
+        lastname: 'Gotti',
+      };
+
+      it('should get current user', () => {
+        return pactum
+          .spec()
+          .patch('/users')
+          .withHeaders({
+            Authorization: 'Bearer $S{accessToken}',
+          })
+          .withBody(dto)
+          .expectStatus(200)
+          .expectBodyContains(dto.firstname) // checks the validity of the response returned
+          .expectBodyContains(dto.lastname)
+          .inspect();
+      });
+    });
   });
 
   describe('Bookmarks', () => {
