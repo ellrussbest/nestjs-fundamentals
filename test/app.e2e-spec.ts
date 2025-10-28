@@ -39,7 +39,7 @@ describe('App e2e', () => {
 
     config = app.get(ConfigService);
 
-    pactum.request.setBaseUrl(config.baseUrl as string);
+    pactum.request.setBaseUrl(config.env.baseUrl as string);
   });
 
   afterAll(async () => {

@@ -22,13 +22,13 @@
     "prisma:dev:deploy": "pnpx prisma migrate deploy",
     "db:dev:rm": "docker compose down --remove-orphans --volumes",
     "db:dev:up": "docker compose up -d",
-    "db:dev:start": "pnpm db:dev:rm && pnpm db:dev:up && pnpx wait-on tcp:5432 && pnpx prisma migrate dev --name init",
-    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && pnpx wait-on tcp:5432 && pnpm prisma:dev:deploy",
+    "db:dev:start": "pnpm db:dev:rm && pnpm db:dev:up && sleep 5 && pnpx prisma migrate dev --name init",
+    "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && sleep 5 && pnpm prisma:dev:deploy",
     "prisma:test:deploy": "dotenv -e .env.test -- pnpx prisma migrate deploy",
     "db:test:rm": "dotenv -e .env.test -- docker compose -f docker-compose.test.yaml down --remove-orphans --volumes",
     "db:test:up": "dotenv -e .env.test -- docker compose -f docker-compose.test.yaml up -d",
-    "db:test:start": "pnpm db:test:rm && pnpm db:test:up && dotenv -e .env.test -- pnpx wait-on tcp:5433 && dotenv -e .env.test -- pnpx prisma migrate dev --name init",
-    "db:test:restart": "pnpm db:test:rm && pnpm db:test:up && dotenv -e .env.test -- pnpx wait-on tcp:5433 && pnpm prisma:test:deploy",
+    "db:test:start": "pnpm db:test:rm && pnpm db:test:up && sleep 5 && dotenv -e .env.test -- pnpx prisma migrate dev --name init",
+    "db:test:restart": "pnpm db:test:rm && pnpm db:test:up && sleep 5 && pnpm prisma:test:deploy",
     "db:test:studio": "dotenv -e .env.test -- pnpx prisma studio"
   },
   "dependencies": {
