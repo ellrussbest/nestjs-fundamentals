@@ -24,6 +24,106 @@ npx prisma studio
 npx prisma -v # know your platform information
 ```
 
+Perfect — you want a clean, step-by-step Markdown guide like your example, but this time including the relevant **SQL / psql commands**.
+
+Here’s a concise, production-style version you can use 👇
+
+---
+
+# 🐘 PostgreSQL Setup Guide (Ubuntu)
+
+---
+
+### 1. Locate the `pg_hba.conf` file
+
+```bash
+sudo -u postgres psql -c "SHOW hba_file;"
+```
+
+### 2. Update authentication method
+
+Edit the file (e.g. `/etc/postgresql/14/main/pg_hba.conf`):
+
+```
+local   all             postgres                                md5
+```
+
+Restart PostgreSQL:
+
+```bash
+sudo systemctl restart postgresql
+```
+
+---
+
+### 3. Log in as the postgres superuser
+
+```bash
+psql -U postgres
+```
+
+### 4. Set a password for the postgres role
+
+```sql
+ALTER USER postgres WITH PASSWORD 'StrongPasswordHere';
+```
+
+---
+
+### 5. Update admin connections (optional)
+
+Edit `pg_hba.conf` again and change any remaining `peer` entries for admin/database access to `md5`, then restart:
+
+```bash
+sudo systemctl restart postgresql
+```
+
+---
+
+### 6. Create a new database and user
+
+```sql
+CREATE DATABASE mydb;
+CREATE USER testuser WITH PASSWORD 'TestUserPassword';
+ALTER DATABASE mydb OWNER TO testuser;
+GRANT ALL PRIVILEGES ON DATABASE mydb TO testuser;
+```
+
+---
+
+### 7. Connect to the new database
+
+```sql
+\c mydb
+```
+
+---
+
+### 8. Fix schema ownership and permissions
+
+```sql
+ALTER SCHEMA public OWNER TO testuser;
+GRANT ALL ON SCHEMA public TO testuser;
+```
+
+---
+
+✅ **Done!**
+You can now connect with:
+
+```bash
+psql -U testuser -d mydb -h localhost -W
+```
+
+---
+
+Another way to do the above automatically (to be tested)
+
+```bash
+sudo -u postgres createuser -P testuser
+sudo -u postgres createdb testdb -O testuser
+```
+
 # Nest
 
 ```bash
