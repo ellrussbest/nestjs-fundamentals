@@ -9,6 +9,13 @@ import { UserModule } from '@/user/user.module';
 @Module({
   imports: [AuthModule, UserModule, BookmarkModule, PrismaModule, ConfigModule],
   controllers: [],
-  providers: [],
+  providers: [
+    // Modular validation
+    // {
+    //   provide: APP_PIPE,
+    //   useValue: new ValidationPipe({}), // pass custom options
+    //   useClass: ValidationPipe, // no options
+    // },
+  ],
 })
 export class AppModule {}

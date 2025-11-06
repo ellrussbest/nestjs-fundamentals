@@ -13,6 +13,7 @@ async function bootstrap() {
       always: true, // always includes default values from DTOs
       transform: true, // auto-transforms payloads to DTO instances
       forbidUnknownValues: true, // helps with undefined bodies
+      validateCustomDecorators: true,
       transformOptions: {
         enableImplicitConversion: true, // allows primitive type conversion (e.g., string -> number)
       },
