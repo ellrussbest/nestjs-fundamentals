@@ -143,7 +143,7 @@ dotenv -e .env.test -- pnpm prisma migrate deploy # run prisma migrate with .env
 dotenv -e .env.test -- pnpx prisma studio
 ```
 
-## Dependency Injection?
+## Dependency Injection? && Inversion of Control
 
 **Dependency Injection (DI)** is a **design pattern** where an object (usually a class) **receives** the objects it depends on (called **dependencies**) from an external source, rather than creating them itself.
 
